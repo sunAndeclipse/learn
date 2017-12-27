@@ -1,0 +1,71 @@
+package com.xaccp.alumniWEB.action;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import org.apache.struts2.ServletActionContext;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Scope;
+import org.springframework.stereotype.Controller;
+import com.opensymphony.xwork2.ActionSupport;
+import com.xaccp.alumni.serviceWEB.impl.UserServiceImpl;
+import com.xaccp.alumniWEB.entity.User;
+import com.xaccp.alumniWEB.service.UserService;
+
+/**
+ * 用户登录-控制层
+ *
+ */
+@Controller
+@Scope("prototype")
+public class UserAction extends ActionSupport {
+
+	HttpServletRequest request = ServletActionContext.getRequest();
+	
+	String uname = request.getParameter("UserName");
+	String upwd = request.getParameter("UserPassword");
+	
+	/*
+	private String uname;
+	private String upwd;
+
+	public String getUname() {
+		return uname;
+	}
+
+	public void setUname(String uname) {
+		this.uname = uname;
+	}
+
+	public String getUpwd() {
+		return upwd;
+	}
+
+	public void setUpwd(String upwd) {
+		this.upwd = upwd;
+	}
+*/
+	private UserService userServiceImpl;
+
+	public UserService getUserServiceImpl() {
+		return userServiceImpl;
+	}
+
+	public void setUserServiceImpl(UserService userServiceImpl) {
+		this.userServiceImpl = userServiceImpl;
+	}
+
+	public String login() {
+		System.out.println("进入了action");
+		return userServiceImpl.findUserByUnameAndUpwd(uname, upwd);
+	}
+
+	/*
+	 * public String saveProduct() { this.addActionMessage("保存成功..."); return
+	 * SUCCESS;
+	 * 
+	 * }
+	 */
+	
+
+}
